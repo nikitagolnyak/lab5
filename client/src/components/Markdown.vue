@@ -21,3 +21,45 @@
   </b-container>
 </template>
 
+<script>
+  import DocumentService from "../service/PostService";
+  let marked = require('marked');
+  export default {
+    name: 'Markdown',
+    data() {
+      return {
+        md_text: '# Title',
+        title: ''
+      }
+    },
+    computed: {
+      previewText() {
+        marked.setOptions({
+          renderer: new marked.Renderer(),
+          gfm: true,
+          tables: true,
+          breaks: true,
+          pedantic: false,
+          sanitize: true,
+          smartLists: true,
+          smartypants: false
+        });
+        return marked(this.md_text)
+      }
+    },
+    methods: {
+      save: function () {
+        if (this.title !== "" && this.md_text !== "") {
+          DocumentService.addNewDocument({
+            title: this.title,
+            text: this.md_text
+          });
+          this.title ='';
+          this.md_text='';
+        } else {
+          alert("Empty fields!");
+        }
+      }
+    }
+  }
+</script>
