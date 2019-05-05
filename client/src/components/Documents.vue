@@ -26,7 +26,18 @@
           <br><br>
           <textarea style="height:auto" rows="16" class='form-control' v-model='openedFile'></textarea>
           <br>
-          <b-button variant="primary" v-on:click="saveChanges">Save changes</b-button>
+          <b-row>
+            <b-col>
+              <b-form-input
+                type="text"
+                v-model="title"
+                requred/>
+            </b-col>
+            <b-col>
+              <b-button variant="primary" v-on:click="saveChanges">Save changes</b-button>
+
+            </b-col>
+          </b-row>
         </b-col>
       </b-row>
 
@@ -49,8 +60,9 @@
           {key: "creation", label: "Created"},
           {key: "modification", label: "Last modification"}
         ],
-        selected: {},
-        openedFile: ''
+        selected: '',
+        openedFile: '',
+        title: ''
       }
     },
     mounted() {
@@ -64,6 +76,7 @@
       },
       rowSelected(item) {
         this.selected = item[0];
+        this.title = this.selected.title;
       },
       async open() {
         const response = await Service.getDocument({
@@ -82,6 +95,7 @@
           text: this.openedFile
         });
         this.openedFile = '';
+        this.title='';
       }
     }
   }
