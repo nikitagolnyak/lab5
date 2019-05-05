@@ -10,7 +10,7 @@
         </b-col>
         <b-col>
           <h2 class="text-center">Preview</h2>
-          <div class="well well-sm pre-scrollable" v-html='previewText'></div>
+          <div class="pre-scrollable" v-html='previewText'></div>
         </b-col>
         <b-row>
           <br>
